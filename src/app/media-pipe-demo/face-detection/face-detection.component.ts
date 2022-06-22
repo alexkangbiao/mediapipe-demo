@@ -22,15 +22,15 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean = true;
   faceDetection: FaceDetection;
-  canvasCtx!: CanvasRenderingContext2D;
+  canvasContext!: CanvasRenderingContext2D;
   fpsControl: controls.FPS;
 
   constructor() {
     this.faceDetection = new FaceDetection(
       {
         locateFile: (file) => {
-          // return `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.0/${file}`;
-          return `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.4/${file}`;
+          return `assets/face_detection/${file}`;
+          // return `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.4/${file}`;
         }
       }
     );
@@ -40,8 +40,16 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
     this.fpsControl = new controls.FPS();
   }
 
+  ngOnInit(): void {
+    // Usage: testSupport({client?: string, os?: string}[])
+    // Client and os are regular expressions.
+    // See: https://cdn.jsdelivr.net/npm/device-detector-js@2.2.10/README.md for
+    // legal values for client and os
+    this.testSupport([{ client: 'Chrome' },]);
+  }
+
   ngAfterViewInit(): void {
-    this.canvasCtx = this.canvasElement?.nativeElement.getContext('2d')!;
+    this.canvasContext = this.canvasElement?.nativeElement.getContext('2d')!;
 
     this.isLoading = false;
 
@@ -113,30 +121,22 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
         this.fpsControl.tick();
 
         // Draw the overlays.
-        this.canvasCtx.save();
-        this.canvasCtx.clearRect(0, 0, this.canvasElement!.nativeElement.width, this.canvasElement!.nativeElement.height);
-        this.canvasCtx.drawImage(
+        this.canvasContext.save();
+        this.canvasContext.clearRect(0, 0, this.canvasElement!.nativeElement.width, this.canvasElement!.nativeElement.height);
+        this.canvasContext.drawImage(
           results.image, 0, 0, this.canvasElement!.nativeElement.width, this.canvasElement!.nativeElement.height);
         if (results.detections.length > 0) {
           drawingUtils.drawRectangle(
-            this.canvasCtx, results.detections[0].boundingBox,
+            this.canvasContext, results.detections[0].boundingBox,
             { color: 'blue', lineWidth: 4, fillColor: '#00000000' });
-          drawingUtils.drawLandmarks(this.canvasCtx, results.detections[0].landmarks, {
+          drawingUtils.drawLandmarks(this.canvasContext, results.detections[0].landmarks, {
             color: 'red',
             radius: 5,
           });
         }
-        this.canvasCtx.restore();
+        this.canvasContext.restore();
       }
     );
-  }
-
-  ngOnInit(): void {
-    // Usage: testSupport({client?: string, os?: string}[])
-    // Client and os are regular expressions.
-    // See: https://cdn.jsdelivr.net/npm/device-detector-js@2.2.10/README.md for
-    // legal values for client and os
-    this.testSupport([{ client: 'Chrome' },]);
   }
 
 
