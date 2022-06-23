@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import DeviceDetector from "device-detector-js";
 import { FaceDetection, Options, Results } from '@mediapipe/face_detection';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import * as controls from '@mediapipe/control_utils';
-
+import { testSupport } from 'src/app/tools/utility';
 
 @Component({
   selector: 'app-face-detection',
@@ -24,6 +23,7 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
   faceDetection: FaceDetection;
   canvasContext!: CanvasRenderingContext2D;
   fpsControl: controls.FPS;
+  controlPanel!: controls.ControlPanel;
 
   constructor() {
     this.faceDetection = new FaceDetection(
@@ -45,7 +45,7 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
     // Client and os are regular expressions.
     // See: https://cdn.jsdelivr.net/npm/device-detector-js@2.2.10/README.md for
     // legal values for client and os
-    this.testSupport([{ client: 'Chrome' },]);
+    testSupport([{ client: 'Chrome' },]);
   }
 
   ngAfterViewInit(): void {
@@ -53,15 +53,50 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
 
     this.isLoading = false;
 
+    this.initControlPanel();
+
+    // Optimization: Turn off animated spinner after its hiding animation is done.
+    const spinner = document.querySelector('.loading')! as HTMLDivElement;
+    spinner.ontransitionend = () => {
+      spinner.style.display = 'none';
+    };
+
+    this.faceDetection.onResults((results: Results) => {
+      // Hide the spinner.
+      document.body.classList.add('loaded');
+
+      // Update the frame rate.
+      this.fpsControl.tick();
+
+      // Draw the overlays.
+      this.canvasContext.save();
+      this.canvasContext.clearRect(0, 0, this.canvasElement!.nativeElement.width, this.canvasElement!.nativeElement.height);
+      this.canvasContext.drawImage(
+        results.image, 0, 0, this.canvasElement!.nativeElement.width, this.canvasElement!.nativeElement.height);
+      if (results.detections.length > 0) {
+        drawingUtils.drawRectangle(
+          this.canvasContext, results.detections[0].boundingBox,
+          { color: 'blue', lineWidth: 4, fillColor: '#00000000' });
+        drawingUtils.drawLandmarks(this.canvasContext, results.detections[0].landmarks, {
+          color: 'red',
+          radius: 5,
+        });
+      }
+      this.canvasContext.restore();
+    }
+    );
+  }
+
+  initControlPanel(): void {
     // Present a control panel through which the user can manipulate the solution
     // options.
-    new controls.ControlPanel(this.controlsElement.nativeElement!, {
+    this.controlPanel = new controls.ControlPanel(this.controlsElement.nativeElement!, {
       selfieMode: true,
       model: 'short',
       minDetectionConfidence: 0.5,
     })
       .add([
-        new controls.StaticText({ title: 'MediaPipe Face Detection' }), 
+        new controls.StaticText({ title: 'MediaPipe Face Detection' }),
         this.fpsControl,
         new controls.Toggle({ title: 'Selfie Mode', field: 'selfieMode' }),
         new controls.SourcePicker({
@@ -105,67 +140,8 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
         this.videoElement.nativeElement.classList.toggle('selfie', options.selfieMode);
         this.faceDetection.setOptions(options);
       });
-
-
-    // Optimization: Turn off animated spinner after its hiding animation is done.
-    const spinner = document.querySelector('.loading')! as HTMLDivElement;
-    spinner.ontransitionend = () => {
-      spinner.style.display = 'none';
-    };
-
-    this.faceDetection.onResults((results: Results) => {
-        // Hide the spinner.
-        document.body.classList.add('loaded');
-
-        // Update the frame rate.
-        this.fpsControl.tick();
-
-        // Draw the overlays.
-        this.canvasContext.save();
-        this.canvasContext.clearRect(0, 0, this.canvasElement!.nativeElement.width, this.canvasElement!.nativeElement.height);
-        this.canvasContext.drawImage(
-          results.image, 0, 0, this.canvasElement!.nativeElement.width, this.canvasElement!.nativeElement.height);
-        if (results.detections.length > 0) {
-          drawingUtils.drawRectangle(
-            this.canvasContext, results.detections[0].boundingBox,
-            { color: 'blue', lineWidth: 4, fillColor: '#00000000' });
-          drawingUtils.drawLandmarks(this.canvasContext, results.detections[0].landmarks, {
-            color: 'red',
-            radius: 5,
-          });
-        }
-        this.canvasContext.restore();
-      }
-    );
   }
 
-
-  testSupport(supportedDevices: { client?: string; os?: string; }[]) {
-    const deviceDetector = new DeviceDetector();
-    const detectedDevice = deviceDetector.parse(navigator.userAgent);
-
-    let isSupported = false;
-    for (const device of supportedDevices) {
-      if (device.client !== undefined) {
-        const re = new RegExp(`^${device.client}$`);
-        if (!re.test(detectedDevice!.client!.name)) {
-          continue;
-        }
-      }
-      if (device.os !== undefined) {
-        const re = new RegExp(`^${device.os}$`);
-        if (!re.test(detectedDevice!.os!.name)) {
-          continue;
-        }
-      }
-      isSupported = true;
-      break;
-    }
-    if (!isSupported) {
-      alert(`This demo, running on ${detectedDevice!.client!.name}/${detectedDevice!.os!.name}, ` +
-        `is not well supported at this time, continue at your own risk.`);
-    }
-  }
 }
 
 
