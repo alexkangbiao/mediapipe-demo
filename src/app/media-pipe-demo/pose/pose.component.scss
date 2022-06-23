@@ -35,7 +35,7 @@
     overflow: hidden;
   }
   
-  .container {
+  .mp-container {
     position: absolute;
     background-color: #596e73;
     width: 100%;
@@ -158,19 +158,25 @@
   }
 
   .fullscreen-panel {
-    width: 3%;
+    width: 100px;
     height: 0;
     padding-top: 3%;
     position: absolute;
     right: 20px;
     bottom: 20px;
+    border: #ffffff;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 2px;
+   
   }
-
   .fullscreen-icon {
     height: 100%;
     width: 100%;
-    position: absolute;
-    top:0;
-    left:0;
-    background-color: #99999999;
+    font-size: 10px;
+    line-height: 25px;
+    position: relative;
+    text-align: center;
   }
+
+  

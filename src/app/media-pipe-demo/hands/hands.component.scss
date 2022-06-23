@@ -35,7 +35,7 @@
     overflow: hidden;
   }
   
-  .container {
+  .mp-container {
     position: absolute;
     background-color: #596e73;
     width: 100%;
@@ -170,7 +170,6 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    top:0;
-    left:0;
+    text-align: center;
     background-color: #99999999;
   }
