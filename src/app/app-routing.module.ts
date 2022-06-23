@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { FaceDetectionComponent } from './media-pipe-demo/face-detection/face-detection.component';
 import { FaceMeshComponent } from './media-pipe-demo/face-mesh/face-mesh.component';
+import { HandsComponent } from './media-pipe-demo/hands/hands.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -15,6 +16,11 @@ const routes: Routes = [
     path: "face-mesh",
     component: FaceMeshComponent,
     data: { demo: true, name: "Face Mesh" },
+  },
+  {
+    path: "hands",
+    component: HandsComponent,
+    data: { demo: true, name: "Hands" },
   },
 ];
 

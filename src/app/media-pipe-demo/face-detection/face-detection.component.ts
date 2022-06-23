@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FaceDetection, Options, Results } from '@mediapipe/face_detection';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import * as controls from '@mediapipe/control_utils';
-import { MediaPipeComponents } from '../MediaPipeComponent';
+import { MediaPipeComponents } from '../media-pipe-component';
 
 @Component({
   selector: 'app-face-detection',

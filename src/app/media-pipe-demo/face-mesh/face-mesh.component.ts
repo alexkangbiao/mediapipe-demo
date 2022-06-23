@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import * as controls from '@mediapipe/control_utils';
 import { FaceMesh, FACEMESH_FACE_OVAL, FACEMESH_LEFT_EYE, FACEMESH_LEFT_EYEBROW, FACEMESH_LEFT_IRIS, FACEMESH_LIPS, FACEMESH_RIGHT_EYE, FACEMESH_RIGHT_EYEBROW, FACEMESH_RIGHT_IRIS, FACEMESH_TESSELATION, Options, Results } from '@mediapipe/face_mesh';
-import { MediaPipeComponents } from '../MediaPipeComponent';
+import { MediaPipeComponents } from '../media-pipe-component';
 
 @Component({
   selector: 'app-face-mesh',
