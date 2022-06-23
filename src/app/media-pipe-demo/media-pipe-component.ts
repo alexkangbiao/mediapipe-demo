@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, OnInit, ViewChild } from "@angular/core";
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import * as controls from '@mediapipe/control_utils';
-import { testSupport } from "../tools/utility";
+import { allowFullScreen, exitFullScreen, isFullScreen, testSupport } from "../tools/utility";
 
 @Directive()
 export abstract class MediaPipeComponents implements OnInit, AfterViewInit {
@@ -39,7 +39,14 @@ export abstract class MediaPipeComponents implements OnInit, AfterViewInit {
   abstract init(): void;
   abstract initControlPanel(): void;
 
-  
+  fullScreen() : void {
+    if (!isFullScreen()) {
+          allowFullScreen();
+    }
+    if (isFullScreen()) {
+          exitFullScreen();
+    }
+  }
 
 }
 
