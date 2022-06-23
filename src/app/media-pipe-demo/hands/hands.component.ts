@@ -7,6 +7,8 @@ import * as drawingUtils from '@mediapipe/drawing_utils';
 import { MediaPipeComponents } from '../media-pipe-component';
 import { Hands, HAND_CONNECTIONS, LandmarkConnectionArray, Options, Results } from '@mediapipe/hands';
 
+// https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d@0.3/control_utils_3d.js
+
 @Component({
   selector: 'app-hands',
   templateUrl: './hands.component.html',
