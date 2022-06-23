@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import * as controls from '@mediapipe/control_utils';
-import { testSupport } from 'src/app/tools/utility';
 import { FaceMesh, FACEMESH_FACE_OVAL, FACEMESH_LEFT_EYE, FACEMESH_LEFT_EYEBROW, FACEMESH_LEFT_IRIS, FACEMESH_LIPS, FACEMESH_RIGHT_EYE, FACEMESH_RIGHT_EYEBROW, FACEMESH_RIGHT_IRIS, FACEMESH_TESSELATION, Options, Results } from '@mediapipe/face_mesh';
+import { MediaPipeComponents } from '../MediaPipeComponent';
 
 @Component({
   selector: 'app-face-mesh',
@@ -10,18 +10,7 @@ import { FaceMesh, FACEMESH_FACE_OVAL, FACEMESH_LEFT_EYE, FACEMESH_LEFT_EYEBROW,
   styleUrls: ['./face-mesh.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FaceMeshComponent implements OnInit, AfterViewInit {
-
-  @ViewChild("output_canvas")
-  canvasElement!: ElementRef<HTMLCanvasElement>;
-  @ViewChild("input_video")
-  videoElement!: ElementRef<HTMLVideoElement>;
-  @ViewChild("control_panel")
-  controlsElement!: ElementRef<HTMLDivElement>;
-
-  canvasContext!: any;
-  controlPanel!: controls.ControlPanel;
-  fpsControl!: controls.FPS;
+export class FaceMeshComponent extends MediaPipeComponents {
   faceMesh!: FaceMesh;
   /**
        * Solution options.
@@ -36,21 +25,11 @@ export class FaceMeshComponent implements OnInit, AfterViewInit {
   };
 
   constructor() {
-    this.fpsControl = new controls.FPS();
+    super();
   }
 
-  ngOnInit(): void {
-    testSupport([{ client: 'Chrome' },]);
-  }
 
-  ngAfterViewInit(): void {
-    this.canvasContext = this.canvasElement.nativeElement.getContext('2d');
-
-    this.initFaceMesh();
-    this.initControlPanel();
-  }
-
-  initFaceMesh(): void {
+  init(): void {
     this.faceMesh = new FaceMesh({
       locateFile: (file) => {
         return `assets/face_mesh/${file}`;

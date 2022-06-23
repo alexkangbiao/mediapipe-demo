@@ -9,7 +9,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "git:push": "git add --all && git commit -m 'auto commit' && git push -u origin main"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +28,7 @@
     "@mediapipe/drawing_utils": "^0.3.1620248257",
     "@mediapipe/face_detection": "^0.4.1646425229",
     "@mediapipe/face_mesh": "^0.4.1633559619",
+    "@mediapipe/hands": "^0.4.1646424915",
     "device-detector-js": "^3.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

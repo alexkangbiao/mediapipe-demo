@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FaceDetection, Options, Results } from '@mediapipe/face_detection';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import * as controls from '@mediapipe/control_utils';
-import { testSupport } from 'src/app/tools/utility';
+import { MediaPipeComponents } from '../MediaPipeComponent';
 
 @Component({
   selector: 'app-face-detection',
@@ -10,22 +10,15 @@ import { testSupport } from 'src/app/tools/utility';
   styleUrls: ['./face-detection.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FaceDetectionComponent implements OnInit, AfterViewInit {
+export class FaceDetectionComponent extends MediaPipeComponents {
 
-  @ViewChild("output_canvas")
-  canvasElement!: ElementRef<HTMLCanvasElement>;
-  @ViewChild("input_video")
-  videoElement!: ElementRef<HTMLVideoElement>;
-  @ViewChild("control_panel")
-  controlsElement!: ElementRef<HTMLDivElement>;
-
-  isLoading: boolean = true;
-  faceDetection: FaceDetection;
-  canvasContext!: CanvasRenderingContext2D;
-  fpsControl: controls.FPS;
-  controlPanel!: controls.ControlPanel;
+  faceDetection!: FaceDetection;
 
   constructor() {
+    super();
+  }
+
+  init(): void {
     this.faceDetection = new FaceDetection(
       {
         locateFile: (file) => {
@@ -34,26 +27,6 @@ export class FaceDetectionComponent implements OnInit, AfterViewInit {
         }
       }
     );
-
-    // We'll add this to our control panel later, but we'll save it here so we can
-    // call tick() each time the graph runs.
-    this.fpsControl = new controls.FPS();
-  }
-
-  ngOnInit(): void {
-    // Usage: testSupport({client?: string, os?: string}[])
-    // Client and os are regular expressions.
-    // See: https://cdn.jsdelivr.net/npm/device-detector-js@2.2.10/README.md for
-    // legal values for client and os
-    testSupport([{ client: 'Chrome' },]);
-  }
-
-  ngAfterViewInit(): void {
-    this.canvasContext = this.canvasElement?.nativeElement.getContext('2d')!;
-
-    this.isLoading = false;
-
-    this.initControlPanel();
 
     // Optimization: Turn off animated spinner after its hiding animation is done.
     const spinner = document.querySelector('.loading')! as HTMLDivElement;
