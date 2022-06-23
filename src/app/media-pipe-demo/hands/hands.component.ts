@@ -23,26 +23,27 @@ export class HandsComponent extends MediaPipeComponents {
   landmarkContainerElement!: ElementRef<HTMLDivElement>;
 
   hands!: Hands;
+  grid: any;
 
   constructor(private scriptService: ScriptService) { 
     super();
-    this.scriptService.load('controls3d');
+    this.scriptService.load('controls3d').then(
+      // this.grid = new controls3d.LandmarkGrid(this.landmarkContainerElement.nativeElement, {
+      //   connectionColor: 0xCCCCCC,
+      //   definedColors:
+      //       [{name: 'Left', value: 0xffa500}, {name: 'Right', value: 0x00ffff}],
+      //   range: 0.2,
+      //   fitToGrid: false,
+      //   labelSuffix: 'm',
+      //   landmarkSize: 2,
+      //   numCellsPerAxis: 4,
+      //   showHidden: false,
+      //   centered: false,
+      // })
+    );
   }
 
   init(): void {
-    // const grid = new controls3d.LandmarkGrid(this.landmarkContainerElement.nativeElement, {
-    //   connectionColor: 0xCCCCCC,
-    //   definedColors:
-    //       [{name: 'Left', value: 0xffa500}, {name: 'Right', value: 0x00ffff}],
-    //   range: 0.2,
-    //   fitToGrid: false,
-    //   labelSuffix: 'm',
-    //   landmarkSize: 2,
-    //   numCellsPerAxis: 4,
-    //   showHidden: false,
-    //   centered: false,
-    // });
-
     this.hands = new Hands({locateFile: (file: string) => {
       return `assets/hands/${file}`;
       // return `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${mpHands.VERSION}/${file}`;
