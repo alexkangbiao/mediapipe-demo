@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { FaceDetectionComponent } from './media-pipe-demo/face-detection/face-detection.component';
-import { FaceMeshComponent } from './media-pipe-demo/face-mesh/face-mesh.component';
-import { HandsComponent } from './media-pipe-demo/hands/hands.component';
-import { PoseComponent } from './media-pipe-demo/pose/pose.component';
+import { FaceDetectionComponent } from './media-pipe-demo/face-detection.component';
+import { FaceMeshComponent } from './media-pipe-demo/face-mesh.component';
+import { HandsComponent } from './media-pipe-demo/hands.component';
+import { PoseComponent } from './media-pipe-demo/pose.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },

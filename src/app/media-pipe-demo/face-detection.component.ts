@@ -2,12 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FaceDetection, Options, Results } from '@mediapipe/face_detection';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 import * as controls from '@mediapipe/control_utils';
-import { MediaPipeComponents } from '../media-pipe-component';
+import { MediaPipeComponents } from './media-pipe-component';
 
 @Component({
   selector: 'app-face-detection',
-  templateUrl: './face-detection.component.html',
-  styleUrls: ['./face-detection.component.scss'],
+  templateUrl: './media-pipe-demo.component.html',
+  styleUrls: ['./media-pipe-demo.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class FaceDetectionComponent extends MediaPipeComponents {

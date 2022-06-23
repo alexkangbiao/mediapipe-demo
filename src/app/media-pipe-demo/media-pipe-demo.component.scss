@@ -157,19 +157,28 @@
     background-color: #99999999;
   }
 
-  .fullscreen-panel {
-    width: 3%;
-    height: 0;
-    padding-top: 3%;
+  .right-bottom-tools {
     position: absolute;
     right: 20px;
     bottom: 20px;
+    cursor: pointer;
+    // background-color: aliceblue;
+    // opacity: 0.1;
+  }
+  .tools-icon {
+    font-size: 40px;
+    line-height: 25px;
+    position: relative;
+    text-align: center;
+    bottom: 20px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    :hover {
+      color: #34db63;
+      text-align: center;
+    }
   }
 
-  .fullscreen-icon {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    text-align: center;
-    background-color: #99999999;
-  }
+  

@@ -5,7 +5,7 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 import * as controls from '@mediapipe/control_utils';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 
-import { MediaPipeComponents } from '../media-pipe-component';
+import { MediaPipeComponents } from './media-pipe-component';
 import { Hands, HAND_CONNECTIONS, LandmarkConnectionArray, Options, Results } from '@mediapipe/hands';
 import { ScriptService } from 'src/app/tools/script-service';
 
@@ -13,8 +13,8 @@ declare let controls3d: any;
 
 @Component({
   selector: 'app-hands',
-  templateUrl: './hands.component.html',
-  styleUrls: ['./hands.component.scss'],
+  templateUrl: './media-pipe-demo.component.html',
+  styleUrls: ['./media-pipe-demo.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class HandsComponent extends MediaPipeComponents {

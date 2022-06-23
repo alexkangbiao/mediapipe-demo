@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MediaPipeComponents } from '../media-pipe-component';
+import { MediaPipeComponents } from './media-pipe-component';
 
 import * as controls from '@mediapipe/control_utils';
 import * as drawingUtils from '@mediapipe/drawing_utils';
@@ -7,8 +7,8 @@ import * as mpPose from '@mediapipe/pose';
 
 @Component({
   selector: 'app-pose',
-  templateUrl: './pose.component.html',
-  styleUrls: ['./pose.component.scss'],
+  templateUrl: './media-pipe-demo.component.html',
+  styleUrls: ['./media-pipe-demo.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class PoseComponent extends MediaPipeComponents {
