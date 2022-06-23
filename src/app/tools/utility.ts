@@ -26,3 +26,15 @@ export const testSupport = (supportedDevices: { client?: string; os?: string; }[
         `is not well supported at this time, continue at your own risk.`);
     }
   }
+
+
+export const isFullScreen = () =>
+document.fullscreenElement?.nodeName === "HTML";
+
+export const allowFullScreen = () =>
+document.documentElement.requestFullscreen();
+
+export const exitFullScreen = () => document.exitFullscreen();
+
+
+

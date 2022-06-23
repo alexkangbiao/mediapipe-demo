@@ -39,5 +39,7 @@ export abstract class MediaPipeComponents implements OnInit, AfterViewInit {
   abstract init(): void;
   abstract initControlPanel(): void;
 
+  
+
 }
 

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component'
 import { MediaPipeDemoModule } from './media-pipe-demo/media-pipe-demo.module';
+import { ScriptService } from './tools/script-service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { MediaPipeDemoModule } from './media-pipe-demo/media-pipe-demo.module';
     BrowserAnimationsModule,
     MediaPipeDemoModule
   ],
-  providers: [],
+  providers: [
+    ScriptService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,13 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 
 // import * as controls3d from '@mediapipe/control_utils_3d';
+// declare module controls3d  'https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d/control_utils_3d.js';
 import * as controls from '@mediapipe/control_utils';
 import * as drawingUtils from '@mediapipe/drawing_utils';
 
 import { MediaPipeComponents } from '../media-pipe-component';
 import { Hands, HAND_CONNECTIONS, LandmarkConnectionArray, Options, Results } from '@mediapipe/hands';
+import { ScriptService } from 'src/app/tools/script-service';
 
-// https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d@0.3/control_utils_3d.js
+declare let controls3d: any;
 
 @Component({
   selector: 'app-hands',
@@ -22,8 +24,9 @@ export class HandsComponent extends MediaPipeComponents {
 
   hands!: Hands;
 
-  constructor() { 
+  constructor(private scriptService: ScriptService) { 
     super();
+    this.scriptService.load('controls3d');
   }
 
   init(): void {
