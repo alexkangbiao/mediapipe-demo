@@ -18,10 +18,11 @@ export abstract class MediaPipeComponents implements OnInit, AfterViewInit {
   canvasContext!: any;
   controlPanel!: controls.ControlPanel;
   fpsControl!: controls.FPS;
-
+  isFullScreenShown: boolean = false;
 
   constructor() {
     this.fpsControl = new controls.FPS();
+    this.isFullScreenShown = isFullScreen();
   }
 
 
@@ -46,6 +47,7 @@ export abstract class MediaPipeComponents implements OnInit, AfterViewInit {
     if (isFullScreen()) {
           exitFullScreen();
     }
+    this.isFullScreenShown = !this.isFullScreenShown;
   }
 
 }

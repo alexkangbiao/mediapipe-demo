@@ -14,8 +14,15 @@
  
   <div class="right-bottom-tools">
     <a href="/" ><i class="bi bi-house-door tools-icon"></i></a>
-    <i class="bi bi-fullscreen tools-icon" (click)="fullScreen()"></i>
+    
+    <div *ngIf="!isFullScreenShown">
+      <i class="bi bi-fullscreen tools-icon" (click)="fullScreen()"></i>
+    </div>
+    <div *ngIf="isFullScreenShown">
+      <i class="bi bi-fullscreen-exit tools-icon" (click)="fullScreen()"></i>
+    </div>
   </div>
+  
   <div #control_panel class="control-panel">
   </div>
   <div class='square-box'>
