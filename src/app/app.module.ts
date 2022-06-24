@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component'
 import { MediaPipeDemoModule } from './media-pipe-demo/media-pipe-demo.module';
 import { ScriptService } from './tools/script-service';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ScriptService } from './tools/script-service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MediaPipeDemoModule
+    MediaPipeDemoModule,
+    PagesModule
   ],
   providers: [
     ScriptService

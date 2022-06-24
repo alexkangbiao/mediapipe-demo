@@ -5,6 +5,7 @@ import { FaceDetectionComponent } from './media-pipe-demo/face-detection.compone
 import { FaceMeshComponent } from './media-pipe-demo/face-mesh.component';
 import { HandsComponent } from './media-pipe-demo/hands.component';
 import { PoseComponent } from './media-pipe-demo/pose.component';
+import { BodyPostureAnalysisComponent } from './pages/body-posture-analysis/body-posture-analysis.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: "pose",
     component: PoseComponent,
     data: { demo: true, name: "Pose" },
+  },
+  {
+    path: "body-posture-analysis",
+    component: BodyPostureAnalysisComponent,
+    data: { demo: true, name: "Body Posture Analysis" },
   },
 ];
 

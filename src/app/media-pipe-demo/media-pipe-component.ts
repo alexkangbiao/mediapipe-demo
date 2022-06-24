@@ -19,12 +19,12 @@ export abstract class MediaPipeComponents implements OnInit, AfterViewInit {
   controlPanel!: controls.ControlPanel;
   fpsControl!: controls.FPS;
   isFullScreenShown: boolean = false;
+  hasLandmarkGridContainer: boolean = false;
 
   constructor() {
     this.fpsControl = new controls.FPS();
     this.isFullScreenShown = isFullScreen();
   }
-
 
   ngOnInit(): void {
     testSupport([{ client: 'Chrome' },]);

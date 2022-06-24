@@ -15,17 +15,21 @@
   <div class="right-bottom-tools">
     <a href="/" ><i class="bi bi-house-door tools-icon"></i></a>
     
-    <div *ngIf="!isFullScreenShown">
+    <ng-container *ngIf="!isFullScreenShown">
       <i class="bi bi-fullscreen tools-icon" (click)="fullScreen()"></i>
-    </div>
-    <div *ngIf="isFullScreenShown">
+    </ng-container>
+    <ng-container *ngIf="isFullScreenShown">
       <i class="bi bi-fullscreen-exit tools-icon" (click)="fullScreen()"></i>
-    </div>
+    </ng-container>
   </div>
   
   <div #control_panel class="control-panel">
   </div>
-  <div class='square-box'>
-    <div #landmark_grid_container class="landmark-grid-container">
+
+  <ng-container *ngIf="hasLandmarkGridContainer">
+    <div class='square-box'>
+      <div #landmark_grid_container class="landmark-grid-container">
+      </div>
     </div>
-  </div>
+  </ng-container>
+  
